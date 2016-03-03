@@ -3,8 +3,14 @@ personal bash configuration and scripts
 
 ### setup
 
-Pull this repo, e.g. to `~/bashu`: 
+Install brew
+> `/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"`
+
+Install git
+> `brew install git`
+
+Pull this repo to `~/bashu`: 
 > `cd ~; git clone git@github.com:marckubischta/bashu.git`
 
-Add this to your `~/.profile`: 
-> `source ~/bashu/main.sh`
+Install: 
+> `~/bashu/install.sh`
