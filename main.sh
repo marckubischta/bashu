@@ -24,8 +24,6 @@ alias ps="ps -Ajww"
 alias grep="grep --color=auto"
 alias egrep='egrep --color=auto'
 
-alias nano='nano -c'
-alias bb='bbedit'
 alias path="ruby -e \"ENV['PATH'].split(':').each{|x|puts x}\""
 alias hist="history | grep -i"
 export HISTTIMEFORMAT="%b %d %I:%M %p "
@@ -38,6 +36,10 @@ alias reloadprofile="source $SHELL_PROFILE"
 alias editprofile="nano -Y sh $SHELL_PROFILE; reloadprofile"
 
 alias vpnreset="sudo killall -INT -u root vpnagentd; sudo SystemStarter start vpnagentd"
+
+# editors
+alias sub='"/Applications/Sublime Text 2.app/Contents/SharedSupport/bin/subl"'
+alias nano='nano -c'
 declare -x EDITOR=/usr/local/bin/nano
 
 
