@@ -31,8 +31,8 @@ export NVM_DIR="$HOME/.nvm"
 alias userlogs="pd ~/Library/Logs"
 alias synclogs="pd ~/Library/Application\ Support/Adobe/CoreSync"
 alias f5dev="f5-developer --tou"
-alias ccweb="pd /git/ccweb"
-alias gnav="pd /git/globalnav"
+alias ccweb="nvm use v0.10.36 && pd /git/ccweb"
+alias gnav="nvm use v4.3.1 && pd /git/globalnav"
 alias qe="pd /git/qe"
 
 # CCWeb
