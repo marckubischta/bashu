@@ -1,10 +1,11 @@
 #
 declare -x DROPBOX="$HOME/Dropbox"
 declare -x DROPBOX_SHELL="$DROPBOX/mac-shell"
+declare -x SCRIPTS="$DROPBOX_SHELL/scripts"
 
 # PATH
 declare -x PATH="/bin:/sbin:/usr/bin:/usr/sbin" # base path
-declare -x PATH="$PATH:$DROPBOX_SHELL/scripts" # scripts
+declare -x PATH="$PATH:$SCRIPTS" # scripts
 declare -x PATH="$PATH:/Applications" # mac apps folder
 
 alias bashu="pushd ~/bashu"
@@ -12,7 +13,7 @@ source ~/bashu/brew.sh
 source ~/bashu/dev.sh
 source ~/bashu/osx.sh
 source ~/bashu/git.sh
-source $DROPBOX_SHELL/scripts/private.sh
+source $SCRIPTS/private.sh
 
 # bash
 alias cd..="cd .."
