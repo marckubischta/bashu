@@ -64,7 +64,7 @@ function _pre_git_prompt
   local GRAY="\[\e[37m\]"
   local BOLD="\[\e[1m\]"
   local NORM="\[\e[0m\]"
-  local PROMPTDATE="\D{%m/%d} \t"
+  local PROMPTDATE="\t"
   case $TERM in
     xterm*)
       local TITLEDATE="\d \D{%Y}"

@@ -26,7 +26,7 @@ alias egrep='egrep --color=auto'
 
 alias path="ruby -e \"ENV['PATH'].split(':').each{|x|puts x}\""
 alias hist="history | grep -i"
-export HISTTIMEFORMAT="%b %d %I:%M %p "
+export HISTTIMEFORMAT="%b %d %I:%M:%S %p "
 export HISTFILESIZE=5000
 export HISTSIZE=5000
 alias psg="ps -Ajww | grep -v grep | egrep -i"
