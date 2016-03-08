@@ -31,19 +31,15 @@ export HISTTIMEFORMAT="%b %d %I:%M:%S %p "
 export HISTFILESIZE=5000
 export HISTSIZE=5000
 alias psg="ps -Ajww | grep -v grep | egrep -i"
-
-declare -x SHELL_PROFILE=$DROPBOX_SHELL/bash_profile.txt
-alias resource="source $BASHU/main.sh"
-alias editprofile="nano -Y sh $SHELL_PROFILE; reloadprofile"
-
 alias vpnreset="sudo killall -INT -u root vpnagentd; sudo SystemStarter start vpnagentd"
+alias resource="source $BASHU/main.sh"
 
 # editors
 alias sub='"/Applications/Sublime Text 2.app/Contents/SharedSupport/bin/subl"'
 alias sp='cd $DROPBOX/Sublime\ Projects/'
 alias nano='nano -c'
 declare -x EDITOR=/usr/local/bin/nano
-
+alias editprofile="sub --wait --project $DROPBOX/Sublime\ Projects/bashu.sublime-project $BASHU/main.sh; resource"
 
 epoch() {
   ruby -e 'puts Time.now.to_i'
