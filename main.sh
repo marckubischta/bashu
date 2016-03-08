@@ -33,7 +33,7 @@ export HISTSIZE=5000
 alias psg="ps -Ajww | grep -v grep | egrep -i"
 
 declare -x SHELL_PROFILE=$DROPBOX_SHELL/bash_profile.txt
-alias reloadprofile="source $SHELL_PROFILE"
+alias resource="source $BASHU/main.sh"
 alias editprofile="nano -Y sh $SHELL_PROFILE; reloadprofile"
 
 alias vpnreset="sudo killall -INT -u root vpnagentd; sudo SystemStarter start vpnagentd"
