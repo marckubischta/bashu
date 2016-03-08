@@ -1,4 +1,5 @@
 #
+declare -x BASHU="$HOME/bashu"
 declare -x DROPBOX="$HOME/Dropbox"
 declare -x DROPBOX_SHELL="$DROPBOX/mac-shell"
 declare -x SCRIPTS="$DROPBOX_SHELL/scripts"
@@ -8,11 +9,11 @@ declare -x PATH="/bin:/sbin:/usr/bin:/usr/sbin" # base path
 declare -x PATH="$PATH:$SCRIPTS" # scripts
 declare -x PATH="$PATH:/Applications" # mac apps folder
 
-alias bashu="pushd ~/bashu"
-source ~/bashu/brew.sh
-source ~/bashu/dev.sh
-source ~/bashu/osx.sh
-source ~/bashu/git.sh
+alias bashu="pushd $BASHU"
+source $BASHU/brew.sh
+source $BASHU/dev.sh
+source $BASHU/osx.sh
+source $BASHU/git.sh
 source $SCRIPTS/private.sh
 
 # bash
