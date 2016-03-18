@@ -35,7 +35,8 @@ alias vpnreset="sudo killall -INT -u root vpnagentd; sudo SystemStarter start vp
 alias resource="source $BASHU/main.sh"
 
 # editors
-alias sub='"/Applications/Sublime Text 2.app/Contents/SharedSupport/bin/subl"'
+alias subl='"/Applications/Sublime Text 2.app/Contents/SharedSupport/bin/subl"'
+alias sub='subl -n; subl -a'
 alias sp='cd $DROPBOX/Sublime\ Projects/'
 alias nano='nano -c'
 declare -x EDITOR=/usr/local/bin/nano
