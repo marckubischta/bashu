@@ -33,6 +33,8 @@ alias synclogs="pd ~/Library/Application\ Support/Adobe/CoreSync"
 alias f5dev="f5-developer --tou"
 alias ccweb="nvm use v0.10.36 && pd /git/ccweb"
 alias gnav="nvm use v4.3.1 && pd /git/globalnav"
+alias pup="nvm use v4.3.1 && pd /git/public-links"
+alias ccfiles="nvm use v4.3.1 && pd /git/ccx-start"
 alias qe="pd /git/qe"
 
 # CCWeb
