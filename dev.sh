@@ -52,6 +52,12 @@ casperx() {
 alias PROD="ASSETS_ENDPOINT=https://assets.adobe.com"
 alias STAGE="ASSETS_FEATURE_SET=7yc6uiq0xw"
 
+adobeid() {
+ ~/scripts/adobeid.rb $* > ~/adobeid.sh
+ source ~/adobeid.sh
+ echo $URNID
+}
+
 auth() {
  ~/scripts/auth.rb $* > ~/auth.sh
  source ~/auth.sh
