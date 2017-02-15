@@ -27,7 +27,7 @@ gitdown() {
 }
 alias gg="git status"
 alias gl="git log --pretty=oneline"
-alias gr="git remote -v && git branch -a --list --verbose"
+alias gr="git remote -v && git branch --all --verbose"
 alias gd="git diff"
 alias gb="git branch"
 
