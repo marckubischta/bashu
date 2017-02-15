@@ -8,6 +8,7 @@ declare -x SCRIPTS="$DROPBOX_SHELL/scripts"
 declare -x PATH="/bin:/sbin:/usr/bin:/usr/sbin" # base path
 declare -x PATH="$PATH:$SCRIPTS" # scripts
 declare -x PATH="$PATH:/Applications" # mac apps folder
+declare -x PATH="$PATH:node_modules/.bin" # local node bin folders
 
 alias bashu="pushd $BASHU"
 source $BASHU/brew.sh
