@@ -22,6 +22,8 @@ denv() {
 # node
 declare -x NODE_PATH="/usr/local/lib/node_modules"
 
+alias npm_clean_rebuild="npm cache clean && rm -rf node_modules && npm install"
+
 test -f ~/.nvm/nvm.sh && source ~/.nvm/nvm.sh && nvm use stable
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
