@@ -71,7 +71,8 @@ function _pre_git_prompt
     *)
       ;;
   esac
-  echo -n "${TITLEBAR}${BLUE}${PROMPTDATE}${NORM}"
+#  echo -n "${TITLEBAR}${BLUE}${PROMPTDATE}${NORM}"
+  echo -n "${TITLEBAR}${PURPLE}\w${NORM}"
 }
 
 function _post_git_prompt
@@ -86,6 +87,7 @@ function _post_git_prompt
   local BOLD="\[\e[1m\]"
   local NORM="\[\e[0m\]"
   local PROMPTDATE="\D{%m/%d} \t"
-  echo -n "${PURPLE}\w${BLACK}${BOLD}\$${NORM} "
+#  echo -n "${PURPLE}\w${BLACK}${BOLD}\$${NORM} "
+  echo -n "${BLACK}${BOLD}\$${NORM} "
 }
 PROMPT_COMMAND='__git_ps1 "`_pre_git_prompt`" " `_post_git_prompt`"'
