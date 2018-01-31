@@ -18,6 +18,9 @@ unbranch() {
 gitpr() {
   git fetch origin refs/pull/$1/head:PR_$1 && git checkout PR_$1
 }
+gitpr_fetch() {
+  git fetch origin refs/pull/$1/head
+}
 gitprm() {
   git fetch $USER refs/pull/$1/head:PR_$1 && git checkout PR_$1
 }
