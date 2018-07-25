@@ -22,6 +22,8 @@ denv() {
 # node
 declare -x NODE_PATH="/usr/local/lib/node_modules"
 
+alias yarn="yarn --ignore-engines"
+alias yarnit="yarn install && yarn test"
 alias npm_clean_rebuild="npm cache clean && rm -rf node_modules && npm install"
 
 test -f ~/.nvm/nvm.sh && source ~/.nvm/nvm.sh && nvm use stable
@@ -38,20 +40,8 @@ alias ssr="nvm use v6.10 && pd /git/ccx-share-sheet"
 alias sst="nvm use v6.10 && pd /git/ccx-share-sheet-torq"
 alias ccx="nvm use v6.10 && pd /git/comments-example"
 
-# CCWeb
-declare -x PATH="$PATH:/git/ccweb/node_modules/.bin" # ccweb
-alias mocas="PHANTOMJS_EXECUTABLE=node_modules/.bin/phantomjs node_modules/.bin/mocha-casperjs --casper-timeout=360000 --timeout=360000 --slow=10000 --viewport-width=900 --viewport-height=900 --ssl-protocol=tlsv1"
-casperd() {
-  ASSETS_SUITE="$1" ASSETS_RETRIES=0 ASSETS_VERBOSE=1 ASSETS_DEBUG=0 npm run-script test-ui
-}
-caspers() {
-  ASSETS_SUITE="$1" ASSETS_RETRIES=0 npm run-script test-ui
-}
-casperx() {
-  ASSETS_SUITE="$1" ASSETS_XML_OUTPUT=1 ASSETS_VERBOSE=1 npm run-script test-ui
-}
-alias PROD="ASSETS_ENDPOINT=https://assets.adobe.com"
-alias STAGE="ASSETS_FEATURE_SET=7yc6uiq0xw"
+# sharesheet
+alias yw="if [[ \`ps -A | grep 'sudo yarn watch' | grep -v grep\` ]]; then ps -A -o pid -o command | grep -v grep | grep 'sudo yarn watch' | awk '{print \$1}' | xargs -I PID -t sudo kill PID; fi; sudo yarn watch --hot --disableHostCheck --host 0.0.0.0 0>&- 1>&- 2>&- &"
 
 adobeid() {
  ~/scripts/adobeid.rb $* > ~/adobeid.sh

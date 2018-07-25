@@ -22,9 +22,10 @@ alias cd..="cd .."
 alias ls="ls -alFG"
 alias ll=ls
 alias pd="pushd"
-alias ps="ps -Ajww"
+alias pss="ps -Ajww"
 alias grep="grep --color=auto"
 alias egrep='egrep --color=auto'
+alias ip='ifconfig | grep broadcast | egrep "\s\d+\.\d+\.\d+\.\d+\s"'
 
 alias path="ruby -e \"ENV['PATH'].split(':').each{|x|puts x}\""
 alias hist="history | grep -i"

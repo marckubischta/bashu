@@ -18,9 +18,6 @@ unbranch() {
 gitpr() {
   git fetch origin refs/pull/$1/head:PR_$1 && git checkout PR_$1
 }
-gitpr_fetch() {
-  git fetch origin refs/pull/$1/head
-}
 gitprm() {
   git fetch $USER refs/pull/$1/head:PR_$1 && git checkout PR_$1
 }
@@ -33,6 +30,8 @@ alias gl="git log --pretty=oneline"
 alias gr="git remote -v && git branch --all --verbose"
 alias gd="git diff"
 alias gb="git branch"
+alias gk="git checkout --"
+alias gry="gk yarn.lock && git checkout master && git fetch origin && git rebase origin/master"
 
 git_new_pr() {
   declare HOST=`git remote -v | grep origin | grep push | sed s/[\@\:]/\ /g | awk '{ print $3 }'`
