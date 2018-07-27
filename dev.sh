@@ -41,7 +41,21 @@ alias sst="nvm use v6.10 && pd /git/ccx-share-sheet-torq"
 alias ccx="nvm use v6.10 && pd /git/comments-example"
 
 # sharesheet
-alias yw="if [[ \`ps -A | grep 'sudo yarn watch' | grep -v grep\` ]]; then ps -A -o pid -o command | grep -v grep | grep 'sudo yarn watch' | awk '{print \$1}' | xargs -I PID -t sudo kill PID; fi; sudo yarn watch --hot --disableHostCheck --host 0.0.0.0 0>&- 1>&- 2>&- &"
+
+#alias yww="if [[ \`ps -A | grep 'sudo yarn watch' | grep -v grep\` ]]; then ps -A -o pid -o command | grep -v grep | grep 'sudo yarn watch' | awk '{print \$1}' | xargs -I PID -t sudo kill PID; fi; sudo yarn watch --hot --disableHostCheck --host 0.0.0.0 0>&- 1>&- 2>&- &"
+
+yw() {
+  if [[ `ps -A | grep 'sudo yarn watch' | grep -v grep` ]]; then
+    echo `ps -A -o pid -o command | grep -v grep | grep 'sudo yarn watch'`
+    ps -A -o pid -o command |
+      grep -v grep |
+      grep 'sudo yarn watch' |
+      awk '{print $1}' |
+      xargs -I PID -t sudo kill PID;
+  fi;
+  echo 'sudo yarn watch --hot --disableHostCheck --host 0.0.0.0';
+  sudo yarn watch --hot --disableHostCheck --host 0.0.0.0 0>&- 1>&- 2>&- &
+}
 
 adobeid() {
  ~/scripts/adobeid.rb $* > ~/adobeid.sh
