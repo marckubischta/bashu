@@ -18,6 +18,9 @@ source $BASHU/git.sh
 source $SCRIPTS/private.sh
 
 # bash
+
+shopt -s histappend
+
 alias cd..="cd .."
 alias ls="ls -alFG"
 alias ll=ls
