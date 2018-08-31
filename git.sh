@@ -92,4 +92,4 @@ function _post_git_prompt
 #  echo -n "${PURPLE}\w${BLACK}${BOLD}\$${NORM} "
   echo -n "${BLACK}${BOLD}\$${NORM} "
 }
-PROMPT_COMMAND='history -a && __git_ps1 "`_pre_git_prompt`" " `_post_git_prompt`"'
+PROMPT_COMMAND='history -a && iterm2_prompt_mark && __git_ps1 "`_pre_git_prompt`" " `_post_git_prompt`"'
