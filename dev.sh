@@ -22,9 +22,12 @@ denv() {
 # node
 declare -x NODE_PATH="/usr/local/lib/node_modules"
 
-alias yarn="yarn --ignore-engines"
-alias yarnit="yarn install && yarn test"
-alias npm_clean_rebuild="npm cache clean && rm -rf node_modules && npm install"
+iwt() {
+  wds-stop-all
+  npm ci
+  npm run test &
+  bin/ci_start.sh
+}
 
 test -f ~/.nvm/nvm.sh && source ~/.nvm/nvm.sh && nvm use stable
 export NVM_DIR="$HOME/.nvm"
@@ -44,17 +47,15 @@ alias ccx="nvm use v6.10 && pd /git/comments-example"
 
 #alias yww="if [[ \`ps -A | grep 'sudo yarn watch' | grep -v grep\` ]]; then ps -A -o pid -o command | grep -v grep | grep 'sudo yarn watch' | awk '{print \$1}' | xargs -I PID -t sudo kill PID; fi; sudo yarn watch --hot --disableHostCheck --host 0.0.0.0 0>&- 1>&- 2>&- &"
 
-yw() {
-  if [[ `ps -A | grep 'sudo yarn watch' | grep -v grep` ]]; then
-    echo `ps -A -o pid -o command | grep -v grep | grep 'sudo yarn watch'`
+wds-stop-all() {
+  if [[ `ps -A | grep 'webpack-dev-server' | grep -v grep` ]]; then
+    echo `ps -A -o pid -o command | grep -v grep | grep 'webpack-dev-server'`
     ps -A -o pid -o command |
       grep -v grep |
-      grep 'sudo yarn watch' |
+      grep 'webpack-dev-server' |
       awk '{print $1}' |
       xargs -I PID -t sudo kill PID;
   fi;
-  echo 'sudo yarn watch --hot --disableHostCheck --host 0.0.0.0';
-  sudo yarn watch --hot --disableHostCheck --host 0.0.0.0 0>&- 1>&- 2>&- &
 }
 
 adobeid() {
