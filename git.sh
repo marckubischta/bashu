@@ -16,7 +16,7 @@ unbranch() {
   git push $USER :$1 && git branch -d $1
 }
 gitpr() {
-  git fetch origin refs/pull/$1/head:PR_$1 && git checkout PR_$1
+  git checkout master && git fetch origin refs/pull/$1/head:PR_$1 && git checkout PR_$1
 }
 gitprm() {
   git fetch $USER refs/pull/$1/head:PR_$1 && git checkout PR_$1
@@ -31,11 +31,14 @@ alias gr="git remote -v && git branch --all --verbose"
 alias gd="git diff"
 alias gb="git branch"
 alias gk="git checkout --"
-alias gry="gk yarn.lock && git checkout master && git fetch origin && git rebase origin/master"
+alias gkm="git checkout master"
+alias gkl="gkm && git fetch origin && git rebase origin/master"
 alias gp="git pull"
 alias gpo="git pull origin"
 alias gpm="git push mkubisch"
 alias gpf="git push --force-with-lease"
+alias gcm="git commit -m"
+alias gcam="git commit -a -m"
 
 git_new_pr() {
   declare HOST=`git remote -v | grep origin | grep push | sed s/[\@\:]/\ /g | awk '{ print $3 }'`

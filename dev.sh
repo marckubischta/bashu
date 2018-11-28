@@ -24,6 +24,7 @@ declare -x NODE_PATH="/usr/local/lib/node_modules"
 
 iwt() {
   wds-stop-all
+  npm run linter &
   npm ci
   npm run test &
   bin/ci_start.sh
@@ -57,6 +58,9 @@ wds-stop-all() {
       xargs -I PID -t sudo kill PID;
   fi;
 }
+
+alias wds-restart="wds-stop-all && npm ci && bin/ci_start.sh"
+alias iw="wds-restart"
 
 adobeid() {
  ~/scripts/adobeid.rb $* > ~/adobeid.sh
