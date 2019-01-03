@@ -48,6 +48,39 @@ alias ccx="nvm use v6.10 && pd /git/comments-example"
 
 #alias yww="if [[ \`ps -A | grep 'sudo yarn watch' | grep -v grep\` ]]; then ps -A -o pid -o command | grep -v grep | grep 'sudo yarn watch' | awk '{print \$1}' | xargs -I PID -t sudo kill PID; fi; sudo yarn watch --hot --disableHostCheck --host 0.0.0.0 0>&- 1>&- 2>&- &"
 
+wrapper-test() {
+  # $1 - github component (fork) org name (not remote name)
+  # $2 - github component branch
+  npm ci
+  npm uninstall @ccx/ccx-share-sheet
+  npm install --save "git+ssh://git@git.corp.adobe.com/${1}/ccx-share-sheet#${2}"
+
+    cd node_modules/@ccx/
+    rm -r ccx-share-sheet
+    
+    git clone "git@git.corp.adobe.com:${1}/ccx-share-sheet"
+    cd ccx-share-sheet
+
+    git config remote.origin.url "git@git.corp.adobe.com:${1}/ccx-share-sheet"
+    git fetch --tags --progress "git@git.corp.adobe.com:${1}/ccx-share-sheet" +refs/pull/*:refs/remotes/origin/pr/*
+    git branch -r
+    git fetch origin "${2}"
+    git checkout "${2}"
+
+    npm ci
+    npm run build
+
+    sed -i'.original' 's/src/dist/g' index.js
+    
+    rm -r node_modules
+    rm -r src
+    
+    cd ../../../
+
+    npm run build
+    zip -r build.zip build -x *.js.map *.DS_Store
+}
+
 wds-stop-all() {
   if [[ `ps -A | grep 'webpack-dev-server' | grep -v grep` ]]; then
     echo `ps -A -o pid -o command | grep -v grep | grep 'webpack-dev-server'`
