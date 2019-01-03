@@ -27,7 +27,7 @@ iwt() {
   npm run linter &
   npm ci
   npm run test &
-  bin/ci_start.sh
+  bin/ci_start.sh --hot
 }
 
 test -f ~/.nvm/nvm.sh && source ~/.nvm/nvm.sh && nvm use stable
@@ -59,7 +59,7 @@ wds-stop-all() {
   fi;
 }
 
-alias wds-restart="wds-stop-all && npm ci && bin/ci_start.sh"
+alias wds-restart="wds-stop-all && npm ci && bin/ci_start.sh --hot"
 alias iw="wds-restart"
 
 adobeid() {
