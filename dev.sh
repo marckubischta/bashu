@@ -5,6 +5,11 @@ declare -x PATH="$PATH:/Applications/android-sdk-macosx/platform-tools"
 export GOPATH=$HOME/go
 declare -x PATH="$PATH:$GOPATH/bin:/usr/local/opt/go/libexec/bin" # golang exe
 
+# cmake
+declare -x CMAKE_HOME="/Applications/CMake.app/Contents/bin"
+declare -x PATH="$PATH:$CMAKE_HOME"
+
+
 # JSON
 alias json="python -mjson.tool"
 
