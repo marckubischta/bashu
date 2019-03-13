@@ -54,36 +54,50 @@ alias ccx="nvm use v6.10 && pd /git/comments-example"
 #alias yww="if [[ \`ps -A | grep 'sudo yarn watch' | grep -v grep\` ]]; then ps -A -o pid -o command | grep -v grep | grep 'sudo yarn watch' | awk '{print \$1}' | xargs -I PID -t sudo kill PID; fi; sudo yarn watch --hot --disableHostCheck --host 0.0.0.0 0>&- 1>&- 2>&- &"
 
 wrapper-test() {
-  # $1 - github component (fork) org name (not remote name)
-  # $2 - github component branch
+  # run this from inside your share-sheet-web-page repo root
+  # pass in the following args:
+  # $1 - github component fork (org/user) name (not remote name)
+  # $2 - github component PR branch
+
+  # build everything
   npm ci
+  # remove the artifactory sharesheet component
   npm uninstall @ccx/ccx-share-sheet
+  # install the component from the PR branch to get its dependencies installed
   npm install --save "git+ssh://git@git.corp.adobe.com/${1}/ccx-share-sheet#${2}"
 
+  # remove the sharesheet component module which has no dist folder
     cd node_modules/@ccx/
     rm -r ccx-share-sheet
     
+  # clone the sharesheet component PR source repo so we can build its dist folder
     git clone "git@git.corp.adobe.com:${1}/ccx-share-sheet"
     cd ccx-share-sheet
 
+  # pull and checkout the PR branch
     git config remote.origin.url "git@git.corp.adobe.com:${1}/ccx-share-sheet"
     git fetch --tags --progress "git@git.corp.adobe.com:${1}/ccx-share-sheet" +refs/pull/*:refs/remotes/origin/pr/*
     git branch -r
     git fetch origin "${2}"
     git checkout "${2}"
 
+  # build node modules and dist folder
     npm ci
     npm run build
 
+  # perform the build step that updates the index.js to point to dist
     sed -i'.original' 's/src/dist/g' index.js
-    
+
+  # clean up
     rm -r node_modules
     rm -r src
-    
+  
+  # back to wrapper repo
     cd ../../../
 
-    npm run build
-    zip -r build.zip build -x *.js.map *.DS_Store
+  # run and zip the wrapper build
+  npm run build
+  zip -r build.zip build -x *.js.map *.DS_Store
 }
 
 wds-stop-all() {
