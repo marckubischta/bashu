@@ -64,7 +64,7 @@ wrapper-test() {
   # remove the artifactory sharesheet component
   npm uninstall @ccx/ccx-share-sheet
   # install the component from the PR branch to get its dependencies installed
-  npm install --save "git+ssh://git@git.corp.adobe.com/${1}/ccx-share-sheet#${2}"
+  npm install --save "git+ssh://git@git.corp.adobe.com:${1}/ccx-share-sheet#${2}"
 
   # remove the sharesheet component module which has no dist folder
     cd node_modules/@ccx/
@@ -75,13 +75,13 @@ wrapper-test() {
     cd ccx-share-sheet
 
   # pull and checkout the PR branch
-    git config remote.origin.url "git@git.corp.adobe.com:${1}/ccx-share-sheet"
     git fetch --tags --progress "git@git.corp.adobe.com:${1}/ccx-share-sheet" +refs/pull/*:refs/remotes/origin/pr/*
-    git branch -r
+    git branch -r | grep ${2}
     git fetch origin "${2}"
     git checkout "${2}"
 
   # build node modules and dist folder
+    cp ../../../.npmrc .
     npm ci
     npm run build
 
@@ -96,7 +96,7 @@ wrapper-test() {
     cd ../../../
 
   # run and zip the wrapper build
-  npm run build
+  npm run build-production
   zip -r build.zip build -x *.js.map *.DS_Store
 }
 
