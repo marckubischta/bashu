@@ -1,5 +1,7 @@
 # adb
-declare -x PATH="$PATH:/Applications/android-sdk-macosx/platform-tools"
+declare -x ANDROID_HOME="$HOME/Library/Android/sdk"
+declare -x PATH="$PATH:$ANDROID_HOME/platform-tools"
+declare -x PATH="$PATH:$ANDROID_HOME/tools"
 
 # GO
 export GOPATH=$HOME/go
