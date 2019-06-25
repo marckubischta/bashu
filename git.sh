@@ -37,8 +37,10 @@ alias gp="git pull"
 alias gpo="git pull origin"
 alias gpm="git push mkubisch"
 alias gpf="git push --force-with-lease"
+alias gcb="git checkout -b"
 alias gcm="git commit -m"
 alias gcam="git commit -a -m"
+alias gsu="git submodule update --init --recursive"
 
 git_new_pr() {
   declare HOST=`git remote -v | grep origin | grep push | sed s/[\@\:]/\ /g | awk '{ print $3 }'`

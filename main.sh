@@ -1,4 +1,5 @@
 #
+declare -x CDPATH=".:/git" 
 declare -x BASHU="$HOME/bashu"
 declare -x DROPBOX="$HOME/Dropbox"
 declare -x DROPBOX_SHELL="$DROPBOX/mac-shell"
