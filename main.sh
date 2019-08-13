@@ -40,6 +40,15 @@ alias psg="ps -Ajww | grep -v grep | egrep -i"
 alias vpnreset="sudo killall -INT -u root vpnagentd; sudo SystemStarter start vpnagentd"
 alias resource="source $BASHU/main.sh"
 
+lsop() {
+  PSID=`sudo lsof -t -iTCP:$1 -sTCP:LISTEN`
+  if [ "$PSID" != "" ]; then
+    psg $PSID
+  else
+    echo No match
+  fi
+}
+
 # editors
 alias subl='"/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl"'
 alias sub='subl -n; subl -a'
