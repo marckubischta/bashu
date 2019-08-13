@@ -50,11 +50,10 @@ export NVM_DIR="$HOME/.nvm"
 # Adobe
 alias userlogs="pd ~/Library/Logs"
 alias synclogs="pd ~/Library/Application\ Support/Adobe/CoreSync"
-alias ccr="nvm use v6.10 && pd /git/ccx-comments"
-alias cct="nvm use v6.10 && pd /git/ccx-comments-torq"
-alias ssr="nvm use v6.10 && pd /git/ccx-share-sheet"
-alias sst="nvm use v6.10 && pd /git/ccx-share-sheet-torq"
-alias ccx="nvm use v6.10 && pd /git/comments-example"
+alias comments="pd /git/ccx-comments"
+alias cwp="pd /git/ccx-comments-web-page"
+alias ssc="pd /git/ccx-share-sheet"
+alias sswp="pd /git/ccx-share-sheet-web-page"
 
 # sharesheet
 
