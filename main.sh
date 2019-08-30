@@ -44,6 +44,9 @@ lsop() {
   PSID=`sudo lsof -t -iTCP:$1 -sTCP:LISTEN`
   if [ "$PSID" != "" ]; then
     psg $PSID
+    if [ "$2" == "kill" ]; then
+      sudo kill $PSID
+    fi
   else
     echo No match
   fi
@@ -77,4 +80,12 @@ killpsline() {
 
 psk() {
   killpsline `psg $1 | head -1`
+}
+
+kill9psline() {
+  kill -9 $2
+}
+
+psk9() {
+  kill9psline `psg $1 | head -1`
 }
