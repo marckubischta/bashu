@@ -16,31 +16,11 @@ declare -x JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk1.8.0_66.jdk/Contents
 declare -x CMAKE_HOME="/Applications/CMake.app/Contents/bin"
 declare -x PATH="$PATH:$CMAKE_HOME"
 
-
 # JSON
 alias json="python -mjson.tool"
 
-# ruby
-declare -x PATH="/usr/local/opt/ruby193/bin:/usr/local/opt/ruby/bin:${PATH}" # prefer brew-managed ruby installs over native install in /usr/bin
-export PATH=/usr/local/Cellar/ruby193/1.9.3-p547/bin:$PATH #explicit path to brew ruby 193... not sure if this is needed
-declare -x RUBYLIB=lib
-
-# docker
-declare -x PATH="$PATH:$HOME/adobe/bin" # local docker install
-denv() {
- eval "$(docker-machine env $1)"
-}
-
 # node
 declare -x NODE_PATH="/usr/local/lib/node_modules"
-
-iwt() {
-  wds-stop-all
-  npm run linter &
-  npm ci
-  npm run test &
-  bin/ci_start.sh --hot
-}
 
 test -f ~/.nvm/nvm.sh && source ~/.nvm/nvm.sh && nvm use stable
 export NVM_DIR="$HOME/.nvm"
@@ -48,8 +28,6 @@ export NVM_DIR="$HOME/.nvm"
 
 
 # Adobe
-alias userlogs="pd ~/Library/Logs"
-alias synclogs="pd ~/Library/Application\ Support/Adobe/CoreSync"
 alias comments="pd /git/ccx-comments"
 alias cwp="pd /git/ccx-comments-web-page"
 alias ssc="pd /git/ccx-share-sheet"
