@@ -35,6 +35,12 @@ alias sswp="pd /git/ccx-share-sheet-web-page"
 
 # sharesheet
 
+nw() {
+  CMD=`echo $* | sed -Ee "s/([^\.]*)\.(.*)/nightwatch --test nightwatch\/tests\/\1.js --testcase \"\2\"/"`
+  echo $CMD
+  bash -c "$CMD"
+}
+
 wds-stop-all() {
   if [[ `ps -A | grep 'webpack-dev-server' | grep -v grep` ]]; then
     echo `ps -A -o pid -o command | grep -v grep | grep 'webpack-dev-server'`
