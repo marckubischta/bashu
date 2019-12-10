@@ -41,6 +41,17 @@ alias gcm="git commit -m"
 alias gcam="git commit -a -m"
 alias gsu="git submodule update --init --recursive"
 
+hotswappr() {
+  lsop 80 kill -9
+  lsop 80
+  if [ "$1" != "" ]; then
+    gitpr $1
+  fi
+  sudo rm -rf ./node_modules
+  npm ci
+  bin/ci_start.sh
+}
+
 git_new_pr() {
   declare HOST=`git remote -v | grep origin | grep push | sed s/[\@\:]/\ /g | awk '{ print $3 }'`
   declare BRANCH=`git branch | grep "*" | awk '{ print $2 }'`
