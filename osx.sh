@@ -4,8 +4,7 @@ alias unshowall="defaults write com.apple.finder AppleShowAllFiles FALSE; killal
 
 alias dq="xattr -d com.apple.quarantine"
 
-alias dockdimhide="defaults write com.apple.Dock showhidden -bool YES; killall Dock"
-alias docknoglass="defaults write com.apple.dock no-glass -boolean YES; killall Dock"
+alias dockdimhide="defaults write com.apple.Dock showhidden -boolean yes; killall Dock"
 alias dockinstahide="defaults write com.apple.Dock autohide-delay -float 0.05; defaults write com.apple.dock autohide-time-modifier -float 0.05; killall Dock"
 
 alias ccscreenshots="defaults write com.apple.screencapture location ~/Creative\ Cloud\ Files/Screenshots/;killall SystemUIServer"
