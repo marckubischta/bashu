@@ -52,6 +52,12 @@ wds-stop-all() {
   fi;
 }
 
+stop() {
+  lsop $1 kill $*
+}
+
+alias start='bin/ci_start.sh'
+alias ci='sudo rm -rf node_modules/.cache; npm ci'
 alias wds-restart="wds-stop-all && npm ci && bin/ci_start.sh --hot"
 alias iw="wds-restart"
 
