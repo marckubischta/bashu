@@ -16,7 +16,8 @@ unbranch() {
   git push $USER :$1 && git branch -d $1
 }
 gitpr() {
-  git checkout master && git fetch origin refs/pull/$1/head:PR_$1 && git checkout PR_$1
+  git checkout master && git branch | grep -q PR_$1 && git branch -D PR_$1
+  git fetch origin refs/pull/$1/head:PR_$1 && git checkout PR_$1
 }
 gitprm() {
   git fetch $USER refs/pull/$1/head:PR_$1 && git checkout PR_$1
