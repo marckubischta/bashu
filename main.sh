@@ -25,6 +25,7 @@ shopt -s histappend
 alias cd..="cd .."
 alias ls="ls -alFG"
 alias ll=ls
+alias lx=exa
 alias pd="pushd"
 alias pss="ps -Ajww"
 alias grep="grep --color=auto"
