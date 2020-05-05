@@ -1,3 +1,5 @@
+declare -x BASH_SILENCE_DEPRECATION_WARNING=1
+
 # osx finder
 alias showall="defaults write com.apple.finder AppleShowAllFiles TRUE; killall Finder"
 alias unshowall="defaults write com.apple.finder AppleShowAllFiles FALSE; killall Finder"
