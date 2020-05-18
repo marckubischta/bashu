@@ -22,7 +22,7 @@ alias json="python -mjson.tool"
 # node
 declare -x NODE_PATH="/usr/local/lib/node_modules"
 
-test -f ~/.nvm/nvm.sh && source ~/.nvm/nvm.sh && nvm use stable
+test -f ~/.nvm/nvm.sh && source ~/.nvm/nvm.sh && nvm use default
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 
