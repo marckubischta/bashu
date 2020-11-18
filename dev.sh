@@ -33,6 +33,8 @@ alias cwp="pd /git/ccx-comments-web-page"
 alias ssc="pd /git/ccx-share-sheet"
 alias sswp="pd /git/ccx-share-sheet-web-page"
 
+declare -x DUMP_MOCKS=1
+
 # sharesheet
 
 nw() {
