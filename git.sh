@@ -16,7 +16,7 @@ unbranch() {
   git push $USER :$1 && git branch -d $1
 }
 gitpr() {
-  git checkout master && git branch | grep -q PR_$1 && git branch -D PR_$1
+  gkm && git branch | grep -q PR_$1 && git branch -D PR_$1
   git fetch origin refs/pull/$1/head:PR_$1 && git checkout PR_$1
 }
 gitprm() {
@@ -32,8 +32,8 @@ alias gr="git remote -v && git branch --all --verbose"
 alias gd="git diff"
 alias gb="git branch"
 alias gk="git checkout --"
-alias gkm="git checkout master"
-alias gkl="gkm && git fetch origin && git rebase origin/master"
+alias gkm="git checkout main || git checkout master"
+alias gkl="gkm && git fetch origin && git rebase origin/main || git rebase origin/master"
 alias gp="git pull"
 alias gpo="git pull origin"
 alias gpm="git push mkubisch"
