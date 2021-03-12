@@ -6,6 +6,7 @@ declare -x PATH="$PATH:$ANDROID_HOME/platform-tools"
 declare -x PATH="$PATH:$ANDROID_HOME/tools"
 
 # python
+declare -x PATH="/usr/local/opt/python\@3.8/bin:$PATH"
 declare -x PATH="/usr/local/opt/python/libexec/bin:$PATH"
 alias python2='PATH=/usr/local/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin python'
 
