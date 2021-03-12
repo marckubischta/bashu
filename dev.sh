@@ -30,9 +30,10 @@ export NVM_DIR="$HOME/.nvm"
 
 # Adobe
 alias comments="pd /git/ccx-comments"
-alias cwp="pd /git/ccx-comments-web-page"
-alias ssc="pd /git/ccx-share-sheet"
-alias sswp="pd /git/ccx-share-sheet-web-page"
+alias ssc="pd /git/ccx-sharing/packages/component-react"
+alias sswp="pd /git/ccx-sharing/packages/ccx-share-sheet-web-page"
+alias yw="yarn workspace @ccx-public/share-sheet-web-page"
+alias yc="yarn workspace @ccx-public/ccx-share-sheet"
 
 declare -x DUMP_MOCKS=1
 
@@ -62,10 +63,8 @@ stop() {
   lsop $1 kill $*
 }
 
-alias start='bin/ci_start.sh'
-alias ci='sudo rm -rf node_modules/.cache; npm ci'
-alias wds-restart="wds-stop-all && npm ci && bin/ci_start.sh --hot"
-alias iw="wds-restart"
+alias start='releng/ci_start.sh @ccx-public/ccx-share-sheet'
+alias lb='stop 80; lerna clean; lerna bootstrap'
 
 adobeid() {
  ~/scripts/adobeid.rb $* > ~/adobeid.sh
