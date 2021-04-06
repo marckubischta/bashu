@@ -99,6 +99,10 @@ function _pre_git_prompt
   echo -n "${TITLEBAR}${PURPLE}\w${NORM}"
 }
 
+function _save_result_command {
+  export _SAVED_COMMAND_RESULT="$?"
+}
+
 function _post_git_prompt
 {
   local BLACK="\[\e[30m\]"
@@ -111,7 +115,11 @@ function _post_git_prompt
   local BOLD="\[\e[1m\]"
   local NORM="\[\e[0m\]"
   local PROMPTDATE="\D{%m/%d} \t"
-#  echo -n "${PURPLE}\w${BLACK}${BOLD}\$${NORM} "
-  echo -n "${BLACK}${BOLD}\$${NORM} "
+#  echo -n "${PURPLE}\w ${BLACK}${BOLD}\$${NORM} "
+  if [ "$_SAVED_COMMAND_RESULT" == "0" ]; then
+    echo -n "🌸 "
+  else
+    echo -n "🎋 "
+  fi
 }
-PROMPT_COMMAND='history -a && iterm2_prompt_mark && __git_ps1 "`_pre_git_prompt`" " `_post_git_prompt`"'
+PROMPT_COMMAND='_save_result_command && history -a && iterm2_prompt_mark && __git_ps1 "`_pre_git_prompt`" " `_post_git_prompt`"'
