@@ -27,13 +27,19 @@ test -f ~/.nvm/nvm.sh && source ~/.nvm/nvm.sh && nvm use default
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 
-
 # Adobe
-alias comments="pd /git/ccx-comments"
-alias ssc="pd /git/ccx-sharing/packages/component-react"
-alias sswp="pd /git/ccx-sharing/packages/ccx-share-sheet-web-page"
-alias yw="yarn workspace @ccx-public/share-sheet-web-page"
-alias yc="yarn workspace @ccx-public/ccx-share-sheet"
+alias comments="pd /git/ccx-comments > /dev/null"
+alias root="pd /git/ccx-sharing > /dev/null"
+alias ssc="pd /git/ccx-sharing/packages/component-react > /dev/null"
+alias sswp="pd /git/ccx-sharing/packages/ccx-share-sheet-web-page > /dev/null"
+
+yarn_alias_wrap() {
+  echo 🧵 $*
+  $*
+}
+
+alias yw="yarn_alias_wrap 'yarn workspace @ccx-public/share-sheet-web-page'"
+alias yc="yarn_alias_wrap 'yarn workspace @ccx-public/ccx-share-sheet'"
 
 declare -x DUMP_MOCKS=1
 
