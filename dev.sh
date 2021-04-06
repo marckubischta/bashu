@@ -48,15 +48,18 @@ nw() {
   bash -c "$CMD"
 }
 
-wds-stop-all() {
-  if [[ `ps -A | grep 'webpack-dev-server' | grep -v grep` ]]; then
-    echo `ps -A -o pid -o command | grep -v grep | grep 'webpack-dev-server'`
-    ps -A -o pid -o command |
-      grep -v grep |
-      grep 'webpack-dev-server' |
-      awk '{print $1}' |
-      xargs -I PID -t sudo kill PID;
-  fi;
+nwcheck() {
+  errors=""
+  sed -Ee "s/^/nw /g" nw.txt | while read in
+    do $in
+    if [[ "$?" != "0" ]]; then
+      errors="$errors $in"
+    fi
+  done
+  if [[ "$errors" != "" ]]; then
+    echo $errors
+    exit 1
+  fi
 }
 
 stop() {
