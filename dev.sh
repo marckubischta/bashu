@@ -66,6 +66,7 @@ stop() {
   lsop $1 kill $*
 }
 
-alias start='releng/ci_start.sh @ccx-public/ccx-share-sheet'
+alias start='root; releng/ci_start.sh @ccx-public/ccx-share-sheet; ssc'
+alias start-wp='root; releng/ci_start.sh @ccx-public/share-sheet-web-page; sswp'
 alias lb='stop 80; lerna clean; lerna bootstrap'
 
