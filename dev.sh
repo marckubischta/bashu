@@ -56,15 +56,16 @@ nw() {
 
 nwcheck() {
   errors=""
-  sed -Ee "s/^/nw /g" nw.txt | while read in
-    do $in
+   while read testcase
+    do $testcase
     if [[ "$?" != "0" ]]; then
-      errors="$errors $in"
+      errors="$errors ${testcase}"
     fi
-  done
+  done <<< "$(sed -Ee 's/^/nw /g' nw.txt)"
   if [[ "$errors" != "" ]]; then
+    echo "🚨 Failed testcases:"
     echo $errors
-    exit 1
+    return 1
   fi
 }
 
