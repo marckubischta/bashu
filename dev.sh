@@ -66,14 +66,3 @@ stop() {
 alias start='releng/ci_start.sh @ccx-public/ccx-share-sheet'
 alias lb='stop 80; lerna clean; lerna bootstrap'
 
-adobeid() {
- ~/scripts/adobeid.rb $* > ~/adobeid.sh
- source ~/adobeid.sh
- echo $URNID
-}
-
-auth() {
- ~/scripts/auth.rb $* > ~/auth.sh
- source ~/auth.sh
-}
-alias carl="curl -H \"\$AUTH\""
