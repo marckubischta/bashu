@@ -16,33 +16,33 @@ unbranch() {
   git push $USER :$1 && git branch -d $1
 }
 gitpr() {
-  gkm && git branch | grep -q PR_$1 && git branch -D PR_$1
-  git fetch origin refs/pull/$1/head:PR_$1 && git checkout PR_$1
+  gkm && git branch | grep -q PR_$1 && git_alias_wrap "git branch -D PR_$1"
+  git_alias_wrap "git fetch origin refs/pull/$1/head:PR_$1" && git_alias_wrap "git checkout PR_$1"
 }
-gitprm() {
-  git fetch $USER refs/pull/$1/head:PR_$1 && git checkout PR_$1
+
+git_alias_wrap() {
+  echo 🐙 $*
+  $*
 }
-gitdown() {
-  declare BRANCH=`git branch | grep "*" | awk '{ print $2 }'`
-  git status; git fetch; git status; git stash; git rebase origin/$BRANCH;git stash pop
+git_alias_wrap_q() {
+  echo 🐙 "$*"
+  $*
 }
-alias gg="git status"
-alias gl="git log --pretty=oneline"
-alias gr="git remote -v && git branch --all --verbose"
-alias gd="git diff"
-alias gb="git branch"
-alias gk="git checkout --"
-alias gkp="git checkout -- package*"
-alias gkm="git checkout main || git checkout master"
-alias gkl="gkm && git fetch origin && git rebase origin/main || git rebase origin/master"
-alias gp="git pull"
-alias gpo="git pull origin"
-alias gpm="git push mkubisch"
-alias gcb="git checkout -b"
-alias gcmt="git commit -m"
-alias gcm="git commit --no-verify -m"
-alias gcam="git commit --no-verify --all -m"
-alias gsu="git submodule update --init --recursive"
+
+alias gg="git_alias_wrap 'git status'"
+alias gl="git_alias_wrap 'git log --pretty=oneline'"
+alias gr="git_alias_wrap 'git remote -v && git branch --all --verbose'"
+alias gd="git_alias_wrap 'git diff'"
+alias gb="git_alias_wrap 'git branch'"
+alias gk="git_alias_wrap 'git checkout --'"
+alias gkm="git_alias_wrap 'git checkout main' || git_alias_wrap 'git checkout master'"
+alias gfo="git_alias_wrap 'git fetch origin'"
+alias gkl="gkm && gfo && git_alias_wrap 'git rebase origin/main' || git_alias_wrap 'git rebase origin/master'"
+alias gcb="git_alias_wrap 'git checkout -b'"
+alias gcmt="git_alias_wrap_q 'git commit -m'"
+alias gcm="git_alias_wrap_q 'git commit --no-verify -m'"
+alias gcam="git_alias_wrap_q 'git commit --no-verify --all -m'"
+alias gsu="git_alias_wrap 'git submodule update --init --recursive'"
 
 hotswappr() {
   lsop 80 kill -9

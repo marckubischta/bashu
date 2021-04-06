@@ -44,7 +44,7 @@ alias uxp="npm run uxp-build"
 
 nw() {
   CMD=`echo $* | sed -Ee "s/([^\.]*)\.(.*)/nightwatch --test nightwatch\/tests\/\1.js --testcase \"\2\"/"`
-  echo $CMD
+  echo 👻 $CMD
   bash -c "$CMD"
 }
 
