@@ -1,3 +1,6 @@
+# zsh?
+chsh -s /bin/bash
+
 # bootstrap
 test "$DROPBOX_SHELL" != "" || source ~/bashu/main.sh
 grep "source.*bashu/main\.sh" ~/.profile > /dev/null || echo "source $HOME/bashu/main.sh" >> $HOME/.profile
