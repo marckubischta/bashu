@@ -25,13 +25,15 @@ git_alias_wrap() {
   $*
 }
 git_alias_wrap_q() {
-  echo 🐙 "$*"
-  $*
+  cmd=$1
+  shift
+  echo 🐙 $cmd "$*"
+  $cmd "$*"
 }
 
 alias gg="git_alias_wrap 'git status'"
 alias gl="git_alias_wrap 'git log --pretty=oneline'"
-alias gr="git_alias_wrap 'git remote -v && git branch --all --verbose'"
+alias gr="git_alias_wrap 'git remote -v' && git_alias_wrap 'git branch --all --verbose'"
 alias gd="git_alias_wrap 'git diff'"
 alias gb="git_alias_wrap 'git branch'"
 alias gk="git_alias_wrap 'git checkout --'"
