@@ -105,6 +105,24 @@ function _save_result_command {
   export _SAVED_COMMAND_RESULT="$?"
 }
 
+
+# hanafuda
+flower=""
+case `date "+%m"` in
+  (01) flower="🎍";;
+  (02) flower="🌺";;
+  (03) flower="🌸";;
+  (04) flower="🍇";;
+  (05) flower="🌷";;
+  (06) flower="🦋";;
+  (07) flower="☘️";;
+  (08) flower="🌾";;
+  (09) flower="🍵";;
+  (10) flower="🍁";;
+  (11) flower="⚡️";;
+  (12) flower="⭐️";;
+esac
+
 function _post_git_prompt
 {
   local BLACK="\[\e[30m\]"
@@ -119,7 +137,7 @@ function _post_git_prompt
   local PROMPTDATE="\D{%m/%d} \t"
 #  echo -n "${PURPLE}\w ${BLACK}${BOLD}\$${NORM} "
   if [ "$_SAVED_COMMAND_RESULT" == "0" ]; then
-    echo -n "🌸 "
+    echo -n "$flower "
   else
     echo -n "🎋 "
   fi
