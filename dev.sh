@@ -57,14 +57,13 @@ nw() {
 nwcheck() {
   errors=""
    while read testcase
-    do $testcase
+    do nw $testcase
     if [[ "$?" != "0" ]]; then
-      errors="$errors ${testcase}"
+      errors="$errors\n${testcase}"
     fi
-  done <<< "$(sed -Ee 's/^/nw /g' nw.txt)"
+  done <<< "$(cat nw.txt)"
   if [[ "$errors" != "" ]]; then
-    echo "🚨 Failed testcases:"
-    echo $errors
+    echo -e "🚨 Failed testcases: $errors"
     return 1
   fi
 }
