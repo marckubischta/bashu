@@ -49,7 +49,11 @@ alias localhost="open https://localhost.adobe.com:80/?env=stage\&mode=dev\&api=V
 alias uxp="npm run uxp-build"
 
 nw() {
-  CMD=`echo $* | sed -Ee "s/([^\.]*)\.(.*)/nightwatch --test nightwatch\/tests\/\1.js --testcase \"\2\"/"`
+  if echo $* | grep -q ^fragile\.; then
+    CMD=`echo $* | sed -Ee "s/fragile\.([^\.]*)\.(.*)/nightwatch --test nightwatch\/tests-fragile\/\1.js --testcase \"\2\"/"`
+  else
+    CMD=`echo $* | sed -Ee "s/([^\.]*)\.(.*)/nightwatch --test nightwatch\/tests\/\1.js --testcase \"\2\"/"`
+  fi;
   echo 👻 $CMD
   bash -c "$CMD"
 }
