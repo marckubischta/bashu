@@ -64,7 +64,7 @@ git_new_pr() {
   declare HOST=`git remote -v | grep origin | grep push | sed s/[\@\:]/\ /g | awk '{ print $3 }'`
   declare BRANCH=`git branch | grep "*" | awk '{ print $2 }'`
   declare ORIGIN=`git remote -v | grep origin | grep fetch | sed s/[\:.]/\ /g | awk '{ print $6 }'`
-  open https://$HOST/$ORIGIN/compare/master...$USER:$BRANCH?expand=1
+  open https://$HOST/$ORIGIN/compare/main...$USER:$BRANCH?expand=1
 }
 
 function iterm2_print_user_vars() {
