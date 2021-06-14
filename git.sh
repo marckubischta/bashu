@@ -145,4 +145,10 @@ function _post_git_prompt
     echo -n "🎋 "
   fi
 }
+
+function iterm2_generate_ps1
+{
+  _save_result_command && history -a && iterm2_prompt_mark && __git_ps1 "`_pre_git_prompt`" " `_post_git_prompt`"
+}
+
 PROMPT_COMMAND='_save_result_command && history -a && iterm2_prompt_mark && __git_ps1 "`_pre_git_prompt`" " `_post_git_prompt`"'
