@@ -45,7 +45,7 @@ declare -x DUMP_MOCKS=1
 
 # sharesheet
 
-alias localhost="open https://localhost.adobe.com:80/?env=stage\&mode=dev\&api=V3\&fetch=cloud\&groups=true\&reshare=true\&defaultRole=none"
+alias localhost="open https://localhost.adobe.com:80/?env=stage\&mode=dev\&api=V4\&fetch=cloud\&groups=true\&reshare=true\&defaultRole=none"
 alias uxp="npm run uxp-build"
 
 nw() {
