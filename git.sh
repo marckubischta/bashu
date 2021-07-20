@@ -82,10 +82,8 @@ function _pre_git_prompt
   local GRAY="\[\e[37m\]"
   local BOLD="\[\e[1m\]"
   local NORM="\[\e[0m\]"
-  local PROMPTDATE="\t"
   case $TERM in
     xterm*)
-      local TITLEDATE="\d \D{%Y}"
       local TITLEBAR="\[\e]0;\$LABEL \w\a\]"
       ;;
     *)
@@ -100,14 +98,12 @@ function _pre_git_prompt
     *)
       ;;
   esac
-#  echo -n "${TITLEBAR}${BLUE}${PROMPTDATE}${NORM}"
   echo -n "${TITLEBAR}${PURPLE}\w${NORM}"
 }
 
 function _save_result_command {
   export _SAVED_COMMAND_RESULT="$?"
 }
-
 
 # hanafuda
 flower=""
@@ -118,7 +114,7 @@ case `date "+%m"` in
   (04) flower="🍇";;
   (05) flower="🌷";;
   (06) flower="🦋";;
-  (07) flower="☘️";;
+  (07) flower="🍀";;
   (08) flower="🌾";;
   (09) flower="🍵";;
   (10) flower="🍁";;
@@ -137,18 +133,16 @@ function _post_git_prompt
   local GRAY="\[\e[37m\]"
   local BOLD="\[\e[1m\]"
   local NORM="\[\e[0m\]"
-  local PROMPTDATE="\D{%m/%d} \t"
-#  echo -n "${PURPLE}\w ${BLACK}${BOLD}\$${NORM} "
   if [ "$_SAVED_COMMAND_RESULT" == "0" ]; then
     echo -n "$flower "
   else
-    echo -n "🎋 "
+    echo -n "${_SAVED_COMMAND_RESULT}🎋 "
   fi
 }
 
 function iterm2_generate_ps1
 {
-  _save_result_command && history -a && iterm2_prompt_mark && __git_ps1 "`_pre_git_prompt`" " `_post_git_prompt`"
+  _save_result_command && history -a && __git_ps1 "`_pre_git_prompt`" " `_post_git_prompt`"
 }
 
-PROMPT_COMMAND='_save_result_command && history -a && iterm2_prompt_mark && __git_ps1 "`_pre_git_prompt`" " `_post_git_prompt`"'
+PROMPT_COMMAND='_save_result_command && history -a && __git_ps1 "`_pre_git_prompt`" " `_post_git_prompt`"'
