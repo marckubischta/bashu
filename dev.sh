@@ -46,7 +46,9 @@ declare -x DUMP_MOCKS=1
 # sharesheet
 
 alias localhost="open https://localhost.adobe.com:80/?env=stage\&mode=dev\&api=V4\&fetch=cloud\&groups=true\&reshare=true\&defaultRole=none"
-alias uxp="npm run uxp-build"
+alias cep='sswp; yarn make -- -pl cep -pd IDSN'
+alias uxp="sswp; npm run uxp-build"
+alias build-xd='sswp; yarn make -- -pl web -pd XD'
 
 nw() {
   if echo $* | grep -q ^fragile\.; then
