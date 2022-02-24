@@ -38,6 +38,16 @@ yarn_alias_wrap() {
   $*
 }
 
+sh_alias_wrap() {
+  if [[ "$NODE_ENV" != "" ]]; then
+    echo 🐚 NODE_ENV=$NODE_ENV $*
+    $*
+  else
+    echo 🐚 $*
+    $*
+  fi
+}
+
 alias yw="yarn_alias_wrap 'yarn workspace @ccx-public/share-sheet-web-page'"
 alias yc="yarn_alias_wrap 'yarn workspace @ccx-public/ccx-share-sheet'"
 
@@ -46,16 +56,16 @@ declare -x DUMP_MOCKS=1
 # sharesheet
 
 alias localhost="open https://localhost.adobe.com:80/?env=stage\&mode=dev\&api=V4\&fetch=cloud\&groups=true\&reshare=true\&defaultRole=none"
-alias cep='sswp; yarn make -- -pl cep -pd IDSN'
-alias uxp="sswp; npm run uxp-build"
-alias build-xd='sswp; yarn make -- -pl web -pd XD'
+alias cep="sswp; rm -rf cep; sh_alias_wrap 'node ./bin/cli.js make -pl cep -pd IDSN'"
+alias uxp="sswp; rm -rf uxp; NODE_ENV=development sh_alias_wrap 'webpack --mode development --config webpack/uxp/webpack.config.js'"
+alias build-xd="sswp; rm -rf build; sh_alias_wrap 'node ./bin/cli.js make -pl web -pd XD'"
 
 nw() {
   if echo $* | grep -q ^fragile\.; then
     CMD=`echo $* | sed -Ee "s/fragile\.([^\.]*)\.(.*)/nightwatch --test nightwatch\/tests-fragile\/\1.js --testcase \"\2\"/"`
   else
     CMD=`echo $* | sed -Ee "s/([^\.]*)\.(.*)/nightwatch --test nightwatch\/tests\/\1.js --testcase \"\2\"/"`
-  fi;
+  fi
   echo 👻 $CMD
   bash -c "$CMD"
 }
@@ -63,7 +73,7 @@ nw() {
 nwcheck() {
   ssc
   errors=""
-   while read testcase
+  while read testcase
     do nw $testcase
     if [[ "$?" != "0" ]]; then
       errors="$errors\n${testcase}"
@@ -79,7 +89,7 @@ stop() {
   lsop $1 kill $*
 }
 
-alias start='root; releng/ci_start.sh @ccx-public/ccx-share-sheet; ssc'
-alias start-wp='root; releng/ci_start.sh @ccx-public/share-sheet-web-page; sswp'
-alias lb='root; stop 80; lerna clean; lerna bootstrap'
+alias start='root; sh_alias_wrap "releng/ci_start.sh @ccx-public/ccx-share-sheet"; ssc'
+alias start-wp='root; sh_alias_wrap "releng/ci_start.sh @ccx-public/share-sheet-web-page"; sswp'
+alias lb='root; stop 80; sh_alias_wrap "lerna clean; lerna bootstrap"'
 
