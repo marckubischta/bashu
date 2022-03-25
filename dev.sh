@@ -91,5 +91,4 @@ stop() {
 
 alias start='root; sh_alias_wrap "releng/ci_start.sh @ccx-public/ccx-share-sheet"; ssc'
 alias start-wp='root; sh_alias_wrap "releng/ci_start.sh @ccx-public/share-sheet-web-page"; sswp'
-alias lb='root; stop 80; sh_alias_wrap "lerna clean; lerna bootstrap"'
-
+alias lb='root; stop 80; sh_alias_wrap "lerna clean"; sh_alias_wrap "lerna bootstrap"'

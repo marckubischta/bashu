@@ -4,7 +4,7 @@ declare -x BASH_SILENCE_DEPRECATION_WARNING=1
 alias showall="defaults write com.apple.finder AppleShowAllFiles TRUE; killall Finder"
 alias unshowall="defaults write com.apple.finder AppleShowAllFiles FALSE; killall Finder"
 
-alias dq="xattr -d com.apple.quarantine"
+alias dq="sh_alias_wrap 'xattr -d com.apple.quarantine'"
 
 alias dockdimhide="defaults write com.apple.Dock showhidden -boolean yes; killall Dock"
 alias dockinstahide="defaults write com.apple.Dock autohide-delay -float 0.05; defaults write com.apple.dock autohide-time-modifier -float 0.05; killall Dock"
