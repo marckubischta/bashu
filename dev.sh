@@ -32,6 +32,7 @@ export NVM_DIR="$HOME/.nvm"
 alias comments="pd /git/ccx-comments > /dev/null"
 alias root="pd /git/ccx-sharing > /dev/null"
 alias ssc="pd /git/ccx-sharing/packages/component-react > /dev/null"
+alias sscw="pd /git/ccx-sharing/packages/component-web > /dev/null"
 alias sswp="pd /git/ccx-sharing/packages/ccx-share-sheet-web-page > /dev/null"
 
 yarn_alias_wrap() {
