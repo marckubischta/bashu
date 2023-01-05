@@ -43,6 +43,7 @@ alias gcmt="git_alias_wrap_q 'git commit -m'"
 alias gcm="git_alias_wrap_q 'git commit --no-verify -m'"
 alias gcam="git_alias_wrap_q 'git commit --no-verify --all -m'"
 alias gsu="git_alias_wrap 'git submodule update --init --recursive'"
+alias ignore="git_alias_wrap 'git update-index --assume-unchanged'"
 
 gitpr() {
   gkm && git branch | grep -q PR_$1 && git_alias_wrap "git branch -D PR_$1"

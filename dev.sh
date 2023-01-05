@@ -35,6 +35,9 @@ alias ssc="pd /git/ccx-sharing/packages/component-react > /dev/null"
 alias sscw="pd /git/ccx-sharing/packages/component-web > /dev/null"
 alias sswp="pd /git/ccx-sharing/packages/ccx-share-sheet-web-page > /dev/null"
 
+# playwright
+alias ptrace="sh_alias_wrap 'npx playwright show-trace'"
+
 yarn_alias_wrap() {
   echo 🧵 $*
   $*
@@ -57,7 +60,7 @@ declare -x DUMP_MOCKS=1
 
 # sharesheet
 
-alias localhost="open https://localhost.adobe.com:80/?env=stage\&mode=dev\&api=V4\&fetch=cloud\&groups=true\&reshare=true\&defaultRole=none"
+alias localhost="open https://localhost.adobe.com:80/?env=stage\&mode=dev\&api=V4\&groups=true"
 alias cep="sswp; rm -rf cep; sh_alias_wrap 'node ./bin/cli.js make -pl cep -pd IDSN'"
 alias uxp="sswp; rm -rf uxp; NODE_ENV=development sh_alias_wrap 'webpack --mode development --config webpack/uxp/webpack.config.js'"
 alias build-xd="sswp; rm -rf build; sh_alias_wrap 'node ./bin/cli.js make -pl web -pd XD'"
@@ -65,6 +68,10 @@ alias build-xd="sswp; rm -rf build; sh_alias_wrap 'node ./bin/cli.js make -pl we
 nw() {
   if echo $* | grep -q ^fragile\.; then
     CMD=`echo $* | sed -Ee "s/fragile\.([^\.]*)\.(.*)/nightwatch --test nightwatch\/tests-fragile\/\1.js --testcase \"\2\"/"`
+  elif echo $* | grep -q ^inviteDialog-migrate\.; then
+    CMD=`echo $* | sed -Ee "s/inviteDialog-migrate\.([^\.]*)\.(.*)/nightwatch --test nightwatch\/tests\/inviteDialog-migrate\/\1.js --testcase \"\2\"/"`
+  elif echo $* | grep -q ^inviteDialog-deprecate\.; then
+    CMD=`echo $* | sed -Ee "s/inviteDialog-deprecate\.([^\.]*)\.(.*)/nightwatch --test nightwatch\/tests\/inviteDialog-deprecate\/\1.js --testcase \"\2\"/"`
   else
     CMD=`echo $* | sed -Ee "s/([^\.]*)\.(.*)/nightwatch --test nightwatch\/tests\/\1.js --testcase \"\2\"/"`
   fi
@@ -94,3 +101,20 @@ stop() {
 alias start='root; sh_alias_wrap "releng/ci_start.sh @ccx-public/ccx-share-sheet"; ssc'
 alias start-wp='root; sh_alias_wrap "releng/ci_start.sh @ccx-public/share-sheet-web-page"; sswp'
 alias lb='root; stop 80; sh_alias_wrap "lerna clean"; sh_alias_wrap "lerna bootstrap"'
+
+# copy the uxp sharesheet folder into the specified PS .app and launch it
+
+ups() {
+  if [[ -d uxp ]]; then
+    APP_SS="$1/Contents/Required/UXP"
+    if [[ -e "$APP_SS" ]]; then
+      rm -rf "$APP_SS/com.adobe.ccx.sharesheet"
+      cp -R uxp/com.adobe.ccx.sharesheet "$APP_SS/com.adobe.ccx.sharesheet"
+      open "$1"
+    else
+      echo no ss found in $APP_SS
+    fi
+  else
+    echo no local uxp build found
+  fi;
+}
