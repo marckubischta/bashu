@@ -53,6 +53,13 @@ sh_alias_wrap() {
   fi
 }
 
+sh_alias_wrap_q() {
+  cmd=$1
+  shift
+  echo 🐚 $cmd "$*"
+  $cmd "$*"
+}
+
 alias yw="yarn_alias_wrap 'yarn workspace @ccx-public/share-sheet-web-page'"
 alias yc="yarn_alias_wrap 'yarn workspace @ccx-public/ccx-share-sheet'"
 
