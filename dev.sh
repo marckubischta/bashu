@@ -36,7 +36,13 @@ alias sscw="pd /git/ccx-sharing/packages/component-web > /dev/null"
 alias sswp="pd /git/ccx-sharing/packages/ccx-share-sheet-web-page > /dev/null"
 
 # playwright
-alias ptrace="sh_alias_wrap 'npx playwright show-trace'"
+# alias ptrace="sh_alias_wrap_q 'npx playwright show-trace'"
+# - there's a bug in show-trace preventing it from working on paths with spaces
+# - copy the tracefile to a good location first
+ptrace() {
+  cp "$*" ~/trace.zip
+  sh_alias_wrap 'npx playwright show-trace' ~/trace.zip
+}
 
 yarn_alias_wrap() {
   echo 🧵 $*
