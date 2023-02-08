@@ -74,6 +74,7 @@ function iterm2_print_user_vars() {
 
 function _pre_git_prompt
 {
+  local BGBLACK="\[\e[40m\]"
   local BLACK="\[\e[30m\]"
   local RED="\[\e[31m\]"
   local GREEN="\[\e[32m\]"
@@ -99,7 +100,7 @@ function _pre_git_prompt
     *)
       ;;
   esac
-  echo -n "${TITLEBAR}${PURPLE}\w${NORM}"
+  echo -n "${TITLEBAR}${BGBLACK}\w${NORM}"
 }
 
 function _save_result_command {
