@@ -108,7 +108,7 @@ nwcheck() {
 }
 
 stop() {
-  lsop $1 kill $*
+  sh_alias_wrap "lsop $1 kill"
 }
 
 alias start='root; sh_alias_wrap "releng/ci_start.sh @ccx-public/ccx-share-sheet"; ssc'
