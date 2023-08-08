@@ -111,18 +111,18 @@ function _save_result_command {
 # hanafuda
 flower=""
 case `date "+%m"` in
-  (01) flower="🎍";;
-  (02) flower="🌺";;
-  (03) flower="🌸";;
-  (04) flower="🍇";;
-  (05) flower="🌷";;
-  (06) flower="🦋";;
-  (07) flower="🍀";;
-  (08) flower="🌾";;
-  (09) flower="🍵";;
-  (10) flower="🍁";;
-  (11) flower="⚡️";;
-  (12) flower="⭐️";;
+  (01) flower="🎍";; # Pine / Crane / Sun
+  (02) flower="🌺";; # Plum Blossom / Bush Warbler
+  (03) flower="🌸";; # Cherry Blossom / Curtain
+  (04) flower="🍇";; # Wisteria / Cuckoo
+  (05) flower="🌷";; # Iris / Bridge
+  (06) flower="🦋";; # Peony / Butterflies
+  (07) flower="🍀";; # Bush Clover / Boar
+  (08) flower="🌾";; # Susuki Grass / Geese
+  (09) flower="🍵";; # Chrysanthemum / Sake cup
+  (10) flower="🍁";; # Maple / Deer
+  (11) flower="⚡️";; # Willow / Lightning
+  (12) flower="⭐️";; # Paulownia / Phoenix
 esac
 
 function _post_git_prompt
