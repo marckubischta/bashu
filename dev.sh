@@ -34,6 +34,8 @@ alias root="pd /git/ccx-sharing > /dev/null"
 alias ssc="pd /git/ccx-sharing/packages/component-react > /dev/null"
 alias sscw="pd /git/ccx-sharing/packages/component-web > /dev/null"
 alias sswp="pd /git/ccx-sharing/packages/ccx-share-sheet-web-page > /dev/null"
+alias core="pd /git/ccac-core > /dev/null"
+alias harness="pd /git/ccac-core/packages/ccac-harness > /dev/null"
 
 # playwright
 # alias ptrace="sh_alias_wrap_q 'npx playwright show-trace'"
@@ -114,6 +116,8 @@ stop() {
 alias start='root; sh_alias_wrap "releng/ci_start.sh @ccx-public/ccx-share-sheet"; ssc'
 alias start-wp='root; sh_alias_wrap "releng/ci_start.sh @ccx-public/share-sheet-web-page"; sswp'
 alias lb='root; stop 80; sh_alias_wrap "lerna clean"; sh_alias_wrap "lerna bootstrap"'
+alias corelb='core; sh_alias_wrap "lerna clean"; sh_alias_wrap "lerna bootstrap" && sh_alias_wrap "lerna run build"'
+
 
 # copy the uxp sharesheet folder into the specified PS .app and launch it
 
