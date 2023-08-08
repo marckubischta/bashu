@@ -14,8 +14,9 @@ alias ungitdiffxcode="git config --global --unset diff.external"
 alias gitcolor="git config --global color.ui auto"
 
 unbranch() {
-  git push $USER :$1 && git branch -d $1
+  git_alias_wrap "git push $USER :$1"; git_alias_wrap "git branch -D $1"
 }
+alias unb=unbranch
 
 git_alias_wrap() {
   echo 🐙 $*

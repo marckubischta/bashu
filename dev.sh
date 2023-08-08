@@ -38,13 +38,8 @@ alias core="pd /git/ccac-core > /dev/null"
 alias harness="pd /git/ccac-core/packages/ccac-harness > /dev/null"
 
 # playwright
-# alias ptrace="sh_alias_wrap_q 'npx playwright show-trace'"
 # - there's a bug in show-trace preventing it from working on paths with spaces
-# - copy the tracefile to a good location first
-ptrace() {
-  cp "$*" ~/trace.zip
-  sh_alias_wrap 'npx playwright show-trace' ~/trace.zip
-}
+alias ptrace="sh_alias_wrap 'npx playwright show-trace'"
 
 yarn_alias_wrap() {
   echo 🧵 $*
@@ -113,6 +108,8 @@ stop() {
   sh_alias_wrap "lsop $1 kill"
 }
 
+alias nl='sh_alias_wrap "nvm list"'
+alias nu='sh_alias_wrap "nvm use"'
 alias start='root; sh_alias_wrap "releng/ci_start.sh @ccx-public/ccx-share-sheet"; ssc'
 alias start-wp='root; sh_alias_wrap "releng/ci_start.sh @ccx-public/share-sheet-web-page"; sswp'
 alias lb='root; stop 80; sh_alias_wrap "lerna clean"; sh_alias_wrap "lerna bootstrap"'
