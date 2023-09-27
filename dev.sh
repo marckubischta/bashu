@@ -120,7 +120,7 @@ alias start='root; sh_alias_wrap "releng/ci_start.sh @ccx-public/ccx-share-sheet
 alias start-swc='root; TEST_PORT=8080 sh_alias_wrap "releng/ci_yarn_launch.sh @ccx-public/ccx-share-sheet watch-swc"; ssc'
 alias start-wp='root; sh_alias_wrap "releng/ci_start.sh @ccx-public/share-sheet-web-page"; sswp'
 alias lb='root; stop 80; sh_alias_wrap "lerna clean"; sh_alias_wrap "lerna bootstrap"'
-alias corelb='core; sh_alias_wrap "lerna clean"; sh_alias_wrap "lerna bootstrap" && sh_alias_wrap "lerna run build"'
+alias corelb='core; sh_alias_wrap "lerna clean --ci"; sh_alias_wrap "lerna bootstrap" && sh_alias_wrap "lerna run build"'
 
 
 # copy the uxp sharesheet folder into the specified PS .app and launch it
