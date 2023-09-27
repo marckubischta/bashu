@@ -51,6 +51,9 @@ sh_alias_wrap() {
   if [[ "$NODE_ENV" != "" ]]; then
     echo 🐚 NODE_ENV=$NODE_ENV $*
     $*
+  elif [[ "$TEST_PORT" != "" ]]; then
+    echo 🐚 TEST_PORT=$TEST_PORT $*
+    $*
   else
     echo 🐚 $*
     $*
@@ -72,9 +75,11 @@ declare -x DUMP_MOCKS=1
 # sharesheet
 
 alias localhost="open https://localhost.adobe.com:80/?env=stage\&mode=dev\&api=V4\&groups=true"
-alias cep="sswp; rm -rf cep; sh_alias_wrap 'node ./bin/cli.js make -pl cep -pd IDSN'"
-alias uxp="sswp; rm -rf uxp; NODE_ENV=development sh_alias_wrap 'webpack --mode development --config webpack/uxp/webpack.config.js'"
 alias build-xd="sswp; rm -rf build; sh_alias_wrap 'node ./bin/cli.js make -pl web -pd XD'"
+alias cep="sswp; rm -rf cep; sh_alias_wrap 'node ./bin/cli.js make -pl cep -pd IDSN'"
+alias rs2="sscw; stop 443; INCLUDE_RS2=true EXCLUDE_SWC=true lerna run build; yarn start &"
+alias swc="sscw; stop 443; INCLUDE_RS2=false EXCLUDE_SWC=false lerna run build; yarn start &"
+alias uxp="sswp; rm -rf uxp; NODE_ENV=development sh_alias_wrap 'webpack --mode development --config webpack/uxp/webpack.config.js'"
 
 nw() {
   if echo $* | grep -q ^fragile\.; then
@@ -112,6 +117,7 @@ stop() {
 alias nl='sh_alias_wrap "nvm list"'
 alias nu='sh_alias_wrap "nvm use"'
 alias start='root; sh_alias_wrap "releng/ci_start.sh @ccx-public/ccx-share-sheet"; ssc'
+alias start-swc='root; TEST_PORT=8080 sh_alias_wrap "releng/ci_yarn_launch.sh @ccx-public/ccx-share-sheet watch-swc"; ssc'
 alias start-wp='root; sh_alias_wrap "releng/ci_start.sh @ccx-public/share-sheet-web-page"; sswp'
 alias lb='root; stop 80; sh_alias_wrap "lerna clean"; sh_alias_wrap "lerna bootstrap"'
 alias corelb='core; sh_alias_wrap "lerna clean"; sh_alias_wrap "lerna bootstrap" && sh_alias_wrap "lerna run build"'
