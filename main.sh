@@ -41,8 +41,23 @@ alias psg="ps -Ajww | grep -v grep | egrep -i"
 alias vpnreset="sudo killall -INT -u root vpnagentd; sudo SystemStarter start vpnagentd"
 alias resource="source $BASHU/main.sh"
 
+alias running="up 80 443 8080 9000"
+
+up() {
+  while [ "$*" != "" ]
+  do
+    PORT=$1
+    shift
+    [[ `lsop $PORT` == "No match" ]] || echo Server found at https://localhost.adobe.com:$PORT/ 
+  done
+}
+
 lsop() {
-  PSID=`sudo lsof -t -iTCP:$1 -sTCP:LISTEN`
+  if [[ "$PORT" -ge "1024" ]]; then
+    PSID=`lsof -t -iTCP:$1 -sTCP:LISTEN`
+  else
+    PSID=`sudo lsof -t -iTCP:$1 -sTCP:LISTEN`
+  fi;
   if [ "$PSID" != "" ]; then
     psg $PSID
     if [ "$2" == "kill" ]; then
