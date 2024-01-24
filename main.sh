@@ -53,7 +53,7 @@ up() {
 }
 
 lsop() {
-  if [[ "$PORT" -ge "1024" ]]; then
+  if [[ "$1" -ge "1024" ]]; then
     PSID=`lsof -t -iTCP:$1 -sTCP:LISTEN`
   else
     PSID=`sudo lsof -t -iTCP:$1 -sTCP:LISTEN`
