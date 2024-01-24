@@ -39,6 +39,7 @@ alias harness="pd /git/ccac-core/packages/ccac-harness > /dev/null"
 
 # playwright
 # - there's a bug in show-trace preventing it from working on paths with spaces
+alias pw="../../bin/playwright.sh"
 alias ptrace="sh_alias_wrap 'npx playwright show-trace'"
 alias report="sh_alias_wrap 'npx playwright show-report artifacts/playwright-report'"
 
