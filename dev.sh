@@ -34,8 +34,9 @@ alias root="pd /git/ccx-sharing > /dev/null"
 alias ssc="pd /git/ccx-sharing/packages/component-react > /dev/null"
 alias sscw="pd /git/ccx-sharing/packages/component-web > /dev/null"
 alias sswp="pd /git/ccx-sharing/packages/ccx-share-sheet-web-page > /dev/null"
-alias core="pd /git/ccac-core > /dev/null"
-alias harness="pd /git/ccac-core/packages/ccac-harness > /dev/null"
+alias core="pd /git/component-core > /dev/null"
+alias harness="pd /git/component-core/packages/component-harness > /dev/null"
+alias resetnodecaches="sh_alias_wrap 'npm cache clean --force' && sh_alias_wrap 'yarn cache clean'"
 
 # playwright
 # - there's a bug in show-trace preventing it from working on paths with spaces
