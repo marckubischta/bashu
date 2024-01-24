@@ -87,7 +87,7 @@ function _pre_git_prompt
   local NORM="\[\e[0m\]"
   case $TERM in
     xterm*)
-      local TITLEBAR="\[\e]0;\$LABEL \w\a\]"
+      local TITLEBAR="\[\e]0;\$LABEL \W\a\]"
       ;;
     *)
       local TITLEBAR=""
@@ -101,7 +101,7 @@ function _pre_git_prompt
     *)
       ;;
   esac
-  echo -n "${TITLEBAR}${BGBLACK}\w${NORM}"
+  echo -n "${TITLEBAR}${BGBLACK}\h:\W${NORM}"
 }
 
 function _save_result_command {
