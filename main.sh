@@ -46,17 +46,20 @@ alias running="up 80 443 8080 9000"
 up() {
   while [ "$*" != "" ]
   do
-    PORT=$1
+    CHECK_PORT=$1
     shift
-    [[ `lsop $PORT` == "No match" ]] || echo Server found at https://localhost.adobe.com:$PORT/ 
+    curl -s --head https://localhost.adobe.com:$CHECK_PORT 2>&1 > /dev/null && echo Server found at https://localhost.adobe.com:$CHECK_PORT/ 
   done
 }
 
 lsop() {
-  if [[ "$PORT" -ge "1024" ]]; then
-    PSID=`lsof -t -iTCP:$1 -sTCP:LISTEN`
+  LSOP_PORT=$1
+  if [[ "$LSOP_PORT" -ge "1024" ]]; then
+    echo 🐚 lsof -t -iTCP:$LSOP_PORT -sTCP:LISTEN
+    PSID=`lsof -t -iTCP:$LSOP_PORT -sTCP:LISTEN`
   else
-    PSID=`sudo lsof -t -iTCP:$1 -sTCP:LISTEN`
+    echo 🐚 sudo lsof -t -iTCP:$LSOP_PORT -sTCP:LISTEN
+    PSID=`sudo lsof -t -iTCP:$LSOP_PORT -sTCP:LISTEN`
   fi;
   if [ "$PSID" != "" ]; then
     psg $PSID
