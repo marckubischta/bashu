@@ -20,6 +20,13 @@ declare -x PATH="$PATH:$CMAKE_HOME"
 
 # JSON
 alias json="python -mjson.tool"
+scripts() {
+  if [[ "$1" == "" ]]; then
+    sh_alias_wrap "jq .scripts package.json"
+  else
+    sh_alias_wrap "jq .scripts $1/package.json"
+  fi
+}
 
 # node
 declare -x NODE_PATH="/usr/local/lib/node_modules"
@@ -29,11 +36,13 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 
 # Adobe
+alias pac="pd packages > /dev/null"
 alias comments="pd /git/ccx-comments > /dev/null"
-alias root="pd /git/ccx-sharing > /dev/null"
+alias ss="pd /git/ccx-sharing > /dev/null"
 alias ssc="pd /git/ccx-sharing/packages/component-react > /dev/null"
 alias sscw="pd /git/ccx-sharing/packages/component-web > /dev/null"
 alias sswp="pd /git/ccx-sharing/packages/ccx-share-sheet-web-page > /dev/null"
+
 alias core="pd /git/component-core > /dev/null"
 alias harness="pd /git/component-core/packages/component-harness > /dev/null"
 alias resetnodecaches="sh_alias_wrap 'npm cache clean --force' && sh_alias_wrap 'yarn cache clean'"
@@ -83,29 +92,35 @@ alias rs2="sscw; stop 443; INCLUDE_RS2=true EXCLUDE_SWC=true lerna run build; ya
 alias swc="sscw; stop 443; INCLUDE_RS2=false EXCLUDE_SWC=false lerna run build; yarn start &"
 alias uxp="sswp; rm -rf uxp; NODE_ENV=development sh_alias_wrap 'webpack --mode development --config webpack/uxp/webpack.config.js'"
 
-nw() {
-  if echo $* | grep -q ^fragile\.; then
+ow() {
+  if echo $* | grep -q ^swc\.; then
     CMD=`echo $* | sed -Ee "s/fragile\.([^\.]*)\.(.*)/nightwatch --test nightwatch\/tests-fragile\/\1.js --testcase \"\2\"/"`
-  elif echo $* | grep -q ^inviteDialog-migrate\.; then
-    CMD=`echo $* | sed -Ee "s/inviteDialog-migrate\.([^\.]*)\.(.*)/nightwatch --test nightwatch\/tests\/inviteDialog-migrate\/\1.js --testcase \"\2\"/"`
-  elif echo $* | grep -q ^inviteDialog-deprecate\.; then
-    CMD=`echo $* | sed -Ee "s/inviteDialog-deprecate\.([^\.]*)\.(.*)/nightwatch --test nightwatch\/tests\/inviteDialog-deprecate\/\1.js --testcase \"\2\"/"`
   else
-    CMD=`echo $* | sed -Ee "s/([^\.]*)\.(.*)/nightwatch --test nightwatch\/tests\/\1.js --testcase \"\2\"/"`
+    CMD=`echo $* | sed -Ee "s:([^\.]*\.spec\.ts)(\.|[\:0-9]+)(.*):..\/..\/bin\/playwright.sh playwright\/tests\/\1 -g \"\3\":" | sed -Er "s: › :.*:g"`
   fi
   echo 👻 $CMD
   bash -c "$CMD"
 }
 
-nwcheck() {
+owc() {
+  if echo $* | grep -q ^swc\.; then
+    CMD=`echo $* | sed -Ee "s/fragile\.([^\.]*)\.(.*)/nightwatch --test nightwatch\/tests-fragile\/\1.js --testcase \"\2\"/"`
+  else
+    CMD=`echo $* | sed -Ee "s:([^\.]*\.spec\.ts)(\.|[\:0-9]+)(.*):..\/..\/bin\/playwright.sh --swc playwright\/tests\/\1 -g \"\3\":" | sed -Er "s: › :.*:g"`
+  fi
+  echo 👻 $CMD
+  bash -c "$CMD"
+}
+
+pwcheck() {
   ssc
   errors=""
   while read testcase
-    do nw $testcase
+    do ow $testcase
     if [[ "$?" != "0" ]]; then
       errors="$errors\n${testcase}"
     fi
-  done <<< "$(cat nw.txt)"
+  done <<< "$(cat pw.txt)"
   if [[ "$errors" != "" ]]; then
     echo -e "🚨 Failed testcases: $errors"
     return 1
@@ -118,12 +133,20 @@ stop() {
 
 alias nl='sh_alias_wrap "nvm list"'
 alias nu='sh_alias_wrap "nvm use"'
-alias start='root; sh_alias_wrap "releng/ci_start.sh @ccx-public/ccx-share-sheet"; ssc'
-alias start-swc='root; TEST_PORT=8080 sh_alias_wrap "releng/ci_yarn_launch.sh @ccx-public/ccx-share-sheet watch-swc"; ssc'
-alias start-wp='root; sh_alias_wrap "releng/ci_start.sh @ccx-public/share-sheet-web-page"; sswp'
-alias lb='root; stop 80; sh_alias_wrap "lerna clean"; sh_alias_wrap "lerna bootstrap"'
+alias start='ss; sh_alias_wrap "bin/webapp.sh"; ssc'
+alias start-cdn='ss; TEST_PORT=443 sh_alias_wrap "releng/ci_yarn_launch.sh @ccx-public/cc-share-sheet-web start"; sscw'
+alias start-swc='ss; sh_alias_wrap "bin/webapp.sh -dsp 8080"; ssc'
+alias start-swc-undefined='ss; sh_alias_wrap "bin/webapp.sh -sp 8080"; ssc'
+alias start-wrapper='ss; sh_alias_wrap "releng/ci_start.sh @ccx-public/share-sheet-web-page"; sswp'
+alias lb='sh_alias_wrap "lerna clean"; sh_alias_wrap "lerna bootstrap"'
 alias corelb='core; sh_alias_wrap "lerna clean --ci"; sh_alias_wrap "lerna bootstrap" && sh_alias_wrap "lerna run build"'
-
+root() {
+  while pwd | grep -q packages; do cd ..; done
+}
+pkg() {
+  root
+  cd packages/$*
+}
 
 # copy the uxp sharesheet folder into the specified PS .app and launch it
 

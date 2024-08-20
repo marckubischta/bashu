@@ -25,7 +25,7 @@ shopt -s histappend
 alias cd..="cd .."
 alias ls="ls -alFG"
 alias ll=lx
-alias lx="exa -HhalF --git --color-scale --time-style iso"
+alias lx="exa -gHhalF --git --color-scale --time-style iso"
 alias pd="pushd"
 alias pss="ps -Ajww"
 alias grep="grep --color=auto"
@@ -41,7 +41,14 @@ alias psg="ps -Ajww | grep -v grep | egrep -i"
 alias vpnreset="sudo killall -INT -u root vpnagentd; sudo SystemStarter start vpnagentd"
 alias resource="source $BASHU/main.sh"
 
-alias running="up 80 443 8080 9000"
+alias running="up 80 443 8080 9000 9001 9003 9012"
+
+# ssh - conditionally load agent if necessary
+if ! pss | grep -q ssh-agent ; then
+    eval `ssh-agent -s`
+    ssh-add --apple-use-keychain ~/.ssh/git_corp
+    ssh-add --apple-load-keychain
+fi
 
 up() {
   while [ "$*" != "" ]
