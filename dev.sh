@@ -135,6 +135,7 @@ alias nl='sh_alias_wrap "nvm list"'
 alias nu='sh_alias_wrap "nvm use"'
 alias start='ss; sh_alias_wrap "bin/webapp.sh"; ssc'
 alias start-cdn='ss; TEST_PORT=443 sh_alias_wrap "releng/ci_yarn_launch.sh @ccx-public/cc-share-sheet-web start"; sscw'
+alias loader=start-cdn
 alias start-swc='ss; sh_alias_wrap "bin/webapp.sh -dsp 8080"; ssc'
 alias start-swc-undefined='ss; sh_alias_wrap "bin/webapp.sh -sp 8080"; ssc'
 alias start-wrapper='ss; sh_alias_wrap "releng/ci_start.sh @ccx-public/share-sheet-web-page"; sswp'
@@ -147,6 +148,21 @@ pkg() {
   root
   cd packages/$*
 }
+_pkg_completion() {
+  # input commandline passed via COMP_WORDS / COMP_CWORD
+  local WORD="${COMP_WORDS[COMP_CWORD]}"
+
+  # look up-tree for the folder that packages live in
+  local WKD=$(pwd | sed -Ee "s:(.*)/packages.*:\1:")
+
+  # set output options in COMPREPLY
+  COMPREPLY=( $(/bin/ls -1 "$WKD/packages" | grep "$WORD") )
+} &&
+
+complete -F _pkg_completion pkg
+# -F function: run the function (1) for the command (2)
+
+
 
 # copy the uxp sharesheet folder into the specified PS .app and launch it
 
