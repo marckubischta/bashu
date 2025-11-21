@@ -11,7 +11,7 @@ declare -x PATH="/usr/local/opt/python/libexec/bin:$PATH"
 alias python2='PATH=/usr/local/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin python'
 
 # JAVA
-declare -x JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk1.8.0_321.jdk/Contents/Home"
+declare -x JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk-17.jdk/Contents/Home"
 declare -x PATH="$PATH:$JAVA_HOME/bin"
 
 # cmake
