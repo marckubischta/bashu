@@ -55,7 +55,7 @@ up() {
   do
     CHECK_PORT=$1
     shift
-    curl -s --head https://localhost.adobe.com:$CHECK_PORT 2>&1 > /dev/null && echo Server found at https://localhost.adobe.com:$CHECK_PORT/ 
+    curl -sk --head https://localhost.adobe.com:$CHECK_PORT 2>&1 > /dev/null && echo Server found at https://localhost.adobe.com:$CHECK_PORT/ 
   done
 }
 

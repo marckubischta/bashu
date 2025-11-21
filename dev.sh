@@ -37,11 +37,12 @@ export NVM_DIR="$HOME/.nvm"
 
 # Adobe
 alias pac="pd packages > /dev/null"
-alias comments="pd /git/ccx-comments > /dev/null"
-alias ss="pd /git/ccx-sharing > /dev/null"
-alias ssc="pd /git/ccx-sharing/packages/component-react > /dev/null"
-alias sscw="pd /git/ccx-sharing/packages/component-web > /dev/null"
-alias sswp="pd /git/ccx-sharing/packages/ccx-share-sheet-web-page > /dev/null"
+alias comments="pd /git/ccx-comments > /dev/null && tmtitle 'ccx-comments'"
+alias ss="pd /git/ccx-sharing > /dev/null && tmtitle 'ccx-sharing'"
+alias ssc="pd /git/ccx-sharing/packages/component-react > /dev/null && tmtitle 'ccx-sharing :: component-react'"
+alias sscw="pd /git/ccx-sharing/packages/component-web > /dev/null && tmtitle 'ccx-sharing :: component-web'"
+alias sswp="pd /git/ccx-sharing/packages/ccx-share-sheet-web-page > /dev/null && tmtitle 'ccx-sharing :: ccx-share-sheet-web-page'"
+alias vh="pd /git/ccx-timeline > /dev/null && tmtitle 'ccx-timeline'"
 
 alias core="pd /git/component-core > /dev/null"
 alias harness="pd /git/component-core/packages/component-harness > /dev/null"
@@ -133,6 +134,15 @@ stop() {
 
 alias nl='sh_alias_wrap "nvm list"'
 alias nu='sh_alias_wrap "nvm use"'
+nb() {
+  sh_alias_wrap "nvm use $1"
+  sh_alias_wrap "root"
+  sh_alias_wrap "rm -rf ./node_modules/"
+  sh_alias_wrap "npm cache clean --force"
+  sh_alias_wrap "lerna clean"
+  sh_alias_wrap "lerna bootstrap"
+}
+
 alias start='ss; sh_alias_wrap "bin/webapp.sh"; ssc'
 alias start-cdn='ss; TEST_PORT=443 sh_alias_wrap "releng/ci_yarn_launch.sh @ccx-public/cc-share-sheet-web start"; sscw'
 alias loader=start-cdn
@@ -170,8 +180,10 @@ ups() {
   if [[ -d uxp ]]; then
     APP_SS="$1/Contents/Required/UXP"
     if [[ -e "$APP_SS" ]]; then
-      rm -rf "$APP_SS/com.adobe.ccx.sharesheet"
-      cp -R uxp/com.adobe.ccx.sharesheet "$APP_SS/com.adobe.ccx.sharesheet"
+      echo "🐚 sudo rm -rf \"$APP_SS/com.adobe.ccx.sharesheet\"" &&
+      sudo rm -rf "$APP_SS/com.adobe.ccx.sharesheet" &&
+      echo "🐚 sudo cp -R uxp/com.adobe.ccx.sharesheet \"$APP_SS/com.adobe.ccx.sharesheet\"" &&
+      sudo cp -R uxp/com.adobe.ccx.sharesheet "$APP_SS/com.adobe.ccx.sharesheet" &&
       open "$1"
     else
       echo no ss found in $APP_SS
