@@ -113,6 +113,12 @@ owc() {
   bash -c "$CMD"
 }
 
+n() {
+  CMD=`echo $* | sed -Ee "s/([^\:]*):([^\:]*):([^\:]*)/nano +\2:\3 \"\1\"/"`
+  echo 👻 $CMD
+  bash -c "$CMD"
+}
+
 pwcheck() {
   ssc
   errors=""
@@ -153,10 +159,14 @@ alias lb='sh_alias_wrap "lerna clean"; sh_alias_wrap "lerna bootstrap"'
 alias corelb='core; sh_alias_wrap "lerna clean --ci"; sh_alias_wrap "lerna bootstrap" && sh_alias_wrap "lerna run build"'
 root() {
   while pwd | grep -q packages; do cd ..; done
+  # set the title of the terminal to the current directory
+  tmtitle $(pwd | sed -Ee "s:/git/(.*):\1:")
 }
 pkg() {
   root
   cd packages/$*
+  # set the title of the terminal to the current package
+  tmtitle $(pwd | sed -Ee "s!/git/(.*)/packages/(.*)!\1 :: \2!")
 }
 _pkg_completion() {
   # input commandline passed via COMP_WORDS / COMP_CWORD

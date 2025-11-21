@@ -31,6 +31,14 @@ alias pss="ps -Ajww"
 alias grep="grep --color=auto"
 alias egrep='egrep --color=auto'
 alias ip='ifconfig | grep broadcast | egrep "\s\d+\.\d+\.\d+\.\d+\s"'
+alias tm='tmux -CC'
+
+tmtitle() {
+  if [[ -n "$TMUX" ]]; then
+    echo 🐚 tmux rename-window "$*"
+    tmux rename-window "$*"
+  fi
+}
 
 alias path="ruby -e \"ENV['PATH'].split(':').each{|x|puts x}\""
 alias hist="history | grep -i"
