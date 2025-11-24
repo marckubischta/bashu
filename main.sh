@@ -52,12 +52,12 @@ alias resource="source $BASHU/main.sh"
 alias running="up 80 443 8080 9000 9001 9003 9012"
 
 # ssh - conditionally load agent if necessary
-if ! pss | grep -q ssh-agent ; then
-    eval `ssh-agent -s`
-    ssh-add --apple-use-keychain ~/.ssh/macgyver_github_public
-    ssh-add --apple-use-keychain ~/.ssh/id_github_adobe
-    ssh-add --apple-load-keychain
-fi
+#if ! pss | grep -q ssh-agent ; then
+#    eval `ssh-agent -s`
+#    ssh-add --apple-use-keychain ~/.ssh/macgyver_github_public
+#    ssh-add --apple-use-keychain ~/.ssh/id_github_adobe
+#    ssh-add --apple-load-keychain
+#fi
 
 up() {
   while [ "$*" != "" ]
